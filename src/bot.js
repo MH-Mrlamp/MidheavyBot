@@ -9,7 +9,7 @@ bot.on('ready', () => {
   console.log(`${bot.user.tag} has logged in.`);
 });
 
-bot.on('message', (message) => {
+bot.on('message', async (message) => {
   if (message.author.bot) return;
   if (message.content.startsWith(PREFIX)) {
   const [CMD_NAME, ...args] = message.content
@@ -30,13 +30,43 @@ bot.on('message', (message) => {
       } else {
         message.channel.send('That member was not found');
       }
+    } else if (CMD_NAME === 'ban') {
+      if (!message.member.hasPermission('BAN_MEMBERS'))
+        return message.reply('You dont have permissions to use that command');
+      if (args.length === 0) 
+        return message.reply('Please provide an ID');
+      try {
+        const user = await message.guild.members.ban(args[0]);
+        message.channel.send('User was given the Ban Hammer!');
+      } catch (err) {
+        console.log(err);
+        message.channel.send('an error occured. You dont have permissions or that user was not found');
+      }
     }
   }
 });
-// console.log(`[${message.author.tag}]: ${message.content}`);
-//   if (message.content === 'hello') {
-//     message.channel.send('hello');
-//   }
+
+bot.on('messageReactionAdd', (reaction, user) => {
+  const { name } = reaction.emoji;
+  const member = reaction.message.guild.members.cache.get(user.id);
+  if (reaction.message.id === '861250322869780530') {
+    switch (name) {
+      case '⭐':
+        member.roles.add('861252788456914995');
+        break;
+      case '🐍':
+        member.roles.add('861252845718601828');
+        break;
+      case '💻':
+        member.roles.add('861252892329246770');
+        break;
+      case '☕':
+        member.roles.add('861252957995663411');
+        break;
+    }
+  }
+});
+
 
 
 bot.login(process.env.DISCORDJS_BOT_TOKEN);
