@@ -1,7 +1,10 @@
-require("dotenv").config();
+//make ".env file for "discord token id and webhooks"
+require("dotenv").config(); 
 
-const { Client, WebhookClient } = require('discord.js');
+//import discord.js and add Client to use discord api 
+const { Client, WebhookClient } = require('discord.js'); 
 
+//create bot class
 const bot = new Client({
   partials: ['MESSAGE', 'REACTION']
 });
@@ -11,7 +14,9 @@ const webhookClient = new WebhookClient(
   process.env.WEBHOOK_TOKEN,
 );
 
+//set cmd prefix or add more and additional if you like
 const PREFIX = "$";
+
 
 bot.on('ready', () => {
   console.log(`${bot.user.tag} has logged in.`);
@@ -102,6 +107,7 @@ bot.on('messageReactionRemove', (reaction, user) => {
 
 
 
+//login the bot use discord token key
 bot.login(process.env.DISCORDJS_BOT_TOKEN);
 
 // console.log(process.env.DISCORDJS_BOT_TOKEN);
