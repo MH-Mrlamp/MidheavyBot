@@ -4,6 +4,7 @@ const { Client } = require('discord.js');
 const bot = new Client();
 const PREFIX = "$"
 
+//bot turn on npm run dev
 bot.on('ready', () => {
   console.log(`${bot.user.tag} has logged in.`);
 });
@@ -21,10 +22,10 @@ bot.on('message', (message) => {
   }
 
 });
-  // console.log(`[${message.author.tag}]: ${message.content}`);
-  // if (message.content === 'hello') {
-  //   message.channel.send('hello');
-  // }
+// console.log(`[${message.author.tag}]: ${message.content}`);
+//   if (message.content === 'hello') {
+//     message.channel.send('hello');
+//   }
 
 
 bot.login(process.env.DISCORDJS_BOT_TOKEN);
