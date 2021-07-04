@@ -1,7 +1,9 @@
 require('dotenv').config();
 
 const { Client } = require('discord.js');
-const bot = new Client();
+const bot = new Client({
+  partials: ['MESSAGE', 'REACTION']
+});
 const PREFIX = "$"
 
 //bot turn on npm run dev
@@ -62,6 +64,27 @@ bot.on('messageReactionAdd', (reaction, user) => {
         break;
       case '☕':
         member.roles.add('861252957995663411');
+        break;
+    }
+  }
+});
+
+bot.on('messageReactionRemove', (reaction, user) => {
+  const { name } = reaction.emoji;
+  const member = reaction.message.guild.members.cache.get(user.id);
+  if (reaction.message.id === '861250322869780530') {
+    switch (name) {
+      case '⭐':
+        member.roles.remove('861252788456914995');
+        break;
+      case '🐍':
+        member.roles.remove('861252845718601828');
+        break;
+      case '💻':
+        member.roles.remove('861252892329246770');
+        break;
+      case '☕':
+        member.roles.remove('861252957995663411');
         break;
     }
   }
