@@ -17,18 +17,22 @@ const webhookClient = new WebhookClient(
 //set cmd prefix or add more and additional if you like
 const PREFIX = "$";
 
-
+//login message for bot login (see last line to see bot login)
 bot.on('ready', () => {
   console.log(`${bot.user.tag} has logged in.`);
 });
 
+// https://discord.js.org/#/docs/main/stable/class/Message
 bot.on('message', async (message) => {
+  //im not sure about this line
   if (message.author.bot) return;
+  // to start with your prefix and cleaning up what comes after to unsure no silly business with inaccurate typing
   if (message.content.startsWith(PREFIX)) {
     const [CMD_NAME, ...args] = message.content
       .trim()
       .substring(PREFIX.length)
       .split(/\s+/);
+      //making kick command 
     if (CMD_NAME === 'kick') {
       if (!message.member.hasPermission('KICK_MEMBERS'))
         return message.reply('You do not have permissions to use that command');
